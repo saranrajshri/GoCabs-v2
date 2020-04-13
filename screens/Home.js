@@ -21,7 +21,7 @@ class Home extends React.Component {
   render() {
     return (
       <Container>
-        <Header />
+        {this.context.currentTabIndex !== 0 ? <Header /> : null}
         <ScrollView>
           {this.context.currentTabIndex === 0 ? (
             <BookRide />

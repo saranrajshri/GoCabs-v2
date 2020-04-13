@@ -1,7 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.newproject">
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+   <!-- <meta-data  
+        android:name="com.here.android.maps.appid"
+        android:value="Fxo5lMOCVCihdyGpnJqG" />
+
+    <meta-data
+        android:name="com.here.android.maps.apptoken"
+        android:value="k9-YpW3V3CT2apToVVLwQQ" />
+
+    <meta-data android:name="com.here.android.maps.license.key"
+        android:value="AgD1tcXw7IgMWg4+es5eBm+M9fNn8JuiBKUr2MQNvb6Im11UPs92gL2LFLW9crFSXHllQSNIiU3rkj5u1AyzoQWiqlpAZ02ehn94ib1smzXNxSN6OIBZ7J0a2YK4MaQ2p6mRFu/TMU+DY7XeuyFNAGSkgCQwx6bUoZ7HEpITjQDlkP5DFzUZ3WK6Ib3JzJm0nHWinS1LYROgg3LJ+Vj+q+Qz78hgOoyILa3w1E3rfH+fFkMXTcMlyAZyZap/P3G6rj1JAu6VfJPUJdV8H+KXQpYP52CSrL/BuKVQ79S84tk4+9C4sG6ASKVpLOh9Y4sl8aeYM0Wu4kh17qJpw9DSpJzvIlBUFQ9fpTrdFSAIayDkQwIROAIbpLcEbFLDB50y+tf5iV3aK3ll/V481ZS+7e7VDzzTxSqN2kWHZEAo8pMviY0MiFHOPF7mau9peSp5ChCDjpua42hkfTDlaQ2si476y9ag0gkx8UXjMluraoC6lNbTXZFnQAdimfo/kFr80qjwledMsiZkvStXy2q37dbBM1RVwOp61337cNOY96gG56W9hbGWNnzF6GCZeSHsGiXYcdCm5BO7dSDwlWKG3R+zuJre/Zd1smLkURK17CvO7V6FhKzTjm8/0ytKfIg+bp/tqTRukTo9xtBKTAN8bJgIReGaUx4XkvRlOS3EjOM="/> -->
 
     <application
       android:name=".MainApplication"
