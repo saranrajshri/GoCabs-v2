@@ -5,12 +5,22 @@ import React from 'react';
 import {Item, Input, Icon, Button, Card, CardItem, Right} from 'native-base';
 
 // react native components
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 
 // webview for map
 import WebView from 'react-native-webview';
 
 import {getPlacesSuggestions, geoCoder} from '../../actions/mapActions';
+
+// Firestore
+import firestore from '@react-native-firebase/firestore';
 
 class BookRide extends React.Component {
   constructor() {
@@ -28,6 +38,38 @@ class BookRide extends React.Component {
       toLocationLon: '',
     };
   }
+
+  // to show alert
+  showAlert = () =>
+    Alert.alert(
+      'Searching For Drivers',
+      'Please Wait...',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+
+  // sends data to firebase
+  requestDrivers = () => {
+    this.showAlert();
+    firestore()
+      .collection('waitingOrders')
+      .add({
+        userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
+        fromLat: this.state.fromLocationLat,
+        fromLon: this.state.fromLocationLon,
+        toLocationLat: this.state.toLocationLat,
+        toLocationLon: this.state.toLocationLon,
+      })
+      .then(() => {
+        console.log('Order added!');
+      });
+  };
   render() {
     return (
       <View style={styles.root}>
@@ -59,6 +101,7 @@ class BookRide extends React.Component {
                 return (
                   <Card key={index}>
                     <TouchableOpacity
+                      style={{marginTop: -10}}
                       onPress={() => {
                         this.setState({
                           isSuggestionListFromOpen: false,
@@ -131,6 +174,7 @@ class BookRide extends React.Component {
             : null}
         </View>
         {/* Body */}
+
         {/* <View>
           
         </View> */}
@@ -142,16 +186,62 @@ class BookRide extends React.Component {
         />
         {this.state.pickupLocation !== '' && this.state.dropLocation !== '' ? (
           <View style={styles.footer}>
-            <Icon name="car" style={styles.optionIcons} />
-            <Text style={styles.footerPrice}>
-              Total :<Text style={styles.priceAmount}> 580 RS</Text>
-            </Text>
-
-            <Button style={styles.rideNowButton}>
-              <Text style={styles.rideNowButtonText}>RIDE NOW</Text>
-            </Button>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.footerPrice}>
+                Total :<Text style={styles.priceAmount}> 580 RS</Text>
+              </Text>
+              <Text style={{marginLeft: 5}}>
+                Distance :{' '}
+                <Text style={{color: 'green', fontWeight: 'bold'}}>18 KM</Text>
+              </Text>
+            </View>
+            <View style={{marginLeft: 15, flexDirection: 'row'}}>
+              <Button style={styles.rideLaterButton}>
+                <Text style={styles.rideNowButtonText}>RIDE LATER</Text>
+              </Button>
+              <Button style={styles.rideNowButton} onPress={this.showAlert}>
+                <Text style={styles.rideNowButtonText}>RIDE NOW</Text>
+              </Button>
+            </View>
           </View>
-        ) : null}
+        ) : (
+          // Choose vechile type
+          <View style={styles.footer}>
+            <Text
+              style={{
+                fontSize: 15,
+                marginRight: 20,
+                marginTop: 8,
+                color: '#8e44ad',
+              }}>
+              Explore Nearby
+            </Text>
+            <TouchableOpacity>
+              <Icon
+                name="cafe"
+                style={{marginRight: 30, marginTop: 5, color: '#16a085'}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                name="cash"
+                style={{marginRight: 30, marginTop: 5, color: '#c0392b'}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                name="heart"
+                style={{marginRight: 30, marginTop: 5, color: '#8e44ad'}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                name="restaurant"
+                style={{marginRight: 30, marginTop: 5, color: '#34495e'}}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     );
   }
@@ -190,9 +280,8 @@ var styles = StyleSheet.create({
     fontSize: 40,
   },
   footerPrice: {
-    fontSize: 20,
-    marginLeft: 20,
-    marginTop: 5,
+    fontSize: 15,
+    marginLeft: 5,
     fontWeight: 'bold',
   },
   priceAmount: {
@@ -200,10 +289,14 @@ var styles = StyleSheet.create({
   },
   rideNowButton: {
     padding: 10,
-    position: 'absolute',
-    right: 5,
-    top: 8,
+    marginRight: 10,
     borderRadius: 10,
+  },
+  rideLaterButton: {
+    padding: 10,
+    marginRight: 10,
+    borderRadius: 10,
+    backgroundColor: 'green',
   },
   rideNowButtonText: {
     color: '#fff',
