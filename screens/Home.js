@@ -15,7 +15,7 @@ import FirebaseContext from '../context/firebaseContext';
 
 // tabs
 import BookRide from './Tabs/BookRide';
-import Explore from './Tabs/Explore';
+import MyRides from './Tabs/MyRides';
 
 class Home extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class Home extends React.Component {
           {this.context.currentTabIndex === 0 ? (
             <BookRide />
           ) : this.context.currentTabIndex === 1 ? (
-            <Explore />
+            <MyRides />
           ) : null}
         </ScrollView>
         <Footer />

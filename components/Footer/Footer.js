@@ -29,12 +29,9 @@ class BottomNavigation extends React.Component {
             <Icon name="compass" />
             <Text>Explore</Text>
           </Button>
-          <Button badge vertical>
-            <Badge>
-              <Text>51</Text>
-            </Badge>
-            <Icon active name="navigate" />
-            <Text>Navigate</Text>
+          <Button vertical onPress={() => this.context.setTabIndex(2)}>
+            <Icon active name="bookmark" />
+            <Text style={{fontSize: 8}}>BookMarks</Text>
           </Button>
           <Button vertical>
             <Icon name="more" />

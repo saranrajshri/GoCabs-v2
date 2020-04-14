@@ -2,7 +2,7 @@ import React from 'react';
 
 import {View, Text} from 'react-native';
 
-class Explore extends React.Component {
+class MyRides extends React.Component {
   render() {
     return (
       <View>
@@ -11,4 +11,4 @@ class Explore extends React.Component {
     );
   }
 }
-export default Explore;
+export default MyRides;
