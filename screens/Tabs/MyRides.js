@@ -24,7 +24,7 @@ class MyRides extends React.Component {
   constructor() {
     super();
     this.state = {
-      isScheduledRidesVisible: true,
+      isScheduledRidesVisible: false,
     };
   }
   // get all ride details
@@ -32,35 +32,6 @@ class MyRides extends React.Component {
   componentDidMount() {
     // this.getRideDetails();
   }
-
-  shareDetails = (index) => {
-    var data = this.context.userData.rides[index];
-    var messageText =
-      'RIDE DETAILS \n' +
-      'Date :' +
-      data.date +
-      ', From :' +
-      data.fromLocationName +
-      ', To : ' +
-      data.toLocationName +
-      ', Fare : ' +
-      data.fare +
-      ', Departed At :' +
-      data.departureTime +
-      ', Arrived At : ' +
-      data.reachTime +
-      'Driver Name :' +
-      data.driverName +
-      ', Vechile Number' +
-      data.vechileNumber;
-    Share.share({
-      message: messageText,
-    })
-      //after successful share return result
-      .then((result) => console.log(result))
-      //If any thing goes wrong it comes here
-      .catch((errorMsg) => console.log(errorMsg));
-  };
 
   showScheduledRides = () => {
     this.setState({
