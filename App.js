@@ -9,6 +9,9 @@ import FireBaseContext from './context/firebaseContext';
 // Screens
 import Home from './screens/Home';
 
+// firebase notifications
+import messaging from '@react-native-firebase/messaging';
+
 class App extends React.Component {
   constructor() {
     super();
@@ -32,6 +35,34 @@ class App extends React.Component {
       userData: data,
     });
   };
+
+  // get permission for notiications
+  getPermission = async () => {
+    const settings = await messaging().requestPermission();
+
+    if (settings) {
+      console.log('Permission settings:', settings);
+    }
+  };
+
+  //
+  registerAppWithFCM = async () => {
+    await messaging().registerDeviceForRemoteMessages();
+  };
+  // get fcm token
+  getFCMToken = () => {
+    messaging()
+      .getToken()
+      .then((token) => {
+        console.log(token);
+      });
+  };
+
+  componentDidMount() {
+    this.registerAppWithFCM();
+    this.getPermission();
+    this.getFCMToken();
+  }
   render() {
     return (
       <FireBaseContext.Provider

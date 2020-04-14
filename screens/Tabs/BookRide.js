@@ -4,6 +4,8 @@ import React from 'react';
 // nativebase components
 import {Item, Input, Icon, Button, Card, CardItem, Right} from 'native-base';
 
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 // react native components
 import {
   StyleSheet,
@@ -36,6 +38,8 @@ class BookRide extends React.Component {
       fromLocationLon: '',
       toLocationLat: '',
       toLocationLon: '',
+      isDatePickerVisible: false,
+      isTimePickerVisible: false,
     };
   }
 
@@ -45,6 +49,25 @@ class BookRide extends React.Component {
       'Searching For Drivers',
       'Please Wait...',
       [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+
+  showRideLaterAlert = () =>
+    Alert.alert(
+      'Your ride has been scheduled.',
+      'We will notify you when we find the driver to you',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
@@ -65,10 +88,67 @@ class BookRide extends React.Component {
         fromLon: this.state.fromLocationLon,
         toLocationLat: this.state.toLocationLat,
         toLocationLon: this.state.toLocationLon,
+        type: 'rideNow',
       })
       .then(() => {
         console.log('Order added!');
       });
+  };
+
+  // schedule order
+  scheduleOrder = () => {
+    this.showRideLaterAlert();
+    firestore()
+      .collection('waitingOrders')
+      .add({
+        userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
+        fromLat: this.state.fromLocationLat,
+        fromLon: this.state.fromLocationLon,
+        toLocationLat: this.state.toLocationLat,
+        toLocationLon: this.state.toLocationLon,
+        type: 'rideLater',
+        time: this.state.selectedTime,
+        date: this.state.selectedDate,
+      })
+      .then(() => {
+        console.log('Order added!');
+      });
+  };
+
+  rideLater = () => {
+    this.showDatePicker();
+  };
+
+  showTimePicker = () => {
+    this.setState({
+      isTimePickerVisible: true,
+    });
+  };
+
+  showDatePicker = () => {
+    this.setState({
+      isDatePickerVisible: true,
+    });
+  };
+
+  handleDateConfirm = (date) => {
+    this.setState({
+      selectedDate: date.toString(),
+    });
+    this.showTimePicker();
+  };
+  handleTimeConfirm = (time) => {
+    this.setState({
+      selectedTime: time.toString(),
+    });
+    this.scheduleOrder();
+  };
+
+  hideDatePicker = () => {
+    this.setState({
+      isDatePickerVisible: false,
+      isTimePickerVisible: false,
+    });
   };
   render() {
     return (
@@ -175,6 +255,19 @@ class BookRide extends React.Component {
         </View>
         {/* Body */}
 
+        {/* Date time pciker */}
+        <DateTimePickerModal
+          isVisible={this.state.isDatePickerVisible}
+          mode="date"
+          onConfirm={this.handleDateConfirm}
+          onCancel={this.hideDatePicker}
+        />
+        <DateTimePickerModal
+          isVisible={this.state.isTimePickerVisible}
+          mode="time"
+          onConfirm={this.handleTimeConfirm}
+          onCancel={this.hideDatePicker}
+        />
         {/* <View>
           
         </View> */}
@@ -196,7 +289,7 @@ class BookRide extends React.Component {
               </Text>
             </View>
             <View style={{marginLeft: 15, flexDirection: 'row'}}>
-              <Button style={styles.rideLaterButton}>
+              <Button style={styles.rideLaterButton} onPress={this.rideLater}>
                 <Text style={styles.rideNowButtonText}>RIDE LATER</Text>
               </Button>
               <Button style={styles.rideNowButton} onPress={this.showAlert}>

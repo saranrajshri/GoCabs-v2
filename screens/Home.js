@@ -20,6 +20,9 @@ import MyRides from './Tabs/MyRides';
 // firestore
 import firestore from '@react-native-firebase/firestore';
 
+// date time picker
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 class Home extends React.Component {
   // get user details (real time)
   getUserDetails = () => {
