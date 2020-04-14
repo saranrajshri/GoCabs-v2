@@ -13,7 +13,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentTabIndex: 0,
+      currentTabIndex: 1,
+      userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
+      userData: {},
     };
   }
 
@@ -24,10 +26,20 @@ class App extends React.Component {
     });
   };
 
+  // set user data
+  setUserData = (data) => {
+    this.setState({
+      userData: data,
+    });
+  };
   render() {
     return (
       <FireBaseContext.Provider
-        value={{...this.state, setTabIndex: this.setTabIndex}}>
+        value={{
+          ...this.state,
+          setTabIndex: this.setTabIndex,
+          setUserData: this.setUserData,
+        }}>
         <Container>
           <Home />
         </Container>

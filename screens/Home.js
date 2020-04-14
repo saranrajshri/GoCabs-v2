@@ -17,7 +17,24 @@ import FirebaseContext from '../context/firebaseContext';
 import BookRide from './Tabs/BookRide';
 import MyRides from './Tabs/MyRides';
 
+// firestore
+import firestore from '@react-native-firebase/firestore';
+
 class Home extends React.Component {
+  // get user details (real time)
+  getUserDetails = () => {
+    firestore()
+      .collection('users')
+      .doc(this.context.userID)
+      .onSnapshot((snapshot) => {
+        this.context.setUserData(snapshot.data());
+      });
+  };
+
+  componentDidMount() {
+    this.getUserDetails();
+  }
+
   render() {
     return (
       <Container>

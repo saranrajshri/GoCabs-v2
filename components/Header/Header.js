@@ -22,7 +22,7 @@ class NavBar extends React.Component {
           </Button>
         </Left>
         <Body>
-          <Title>Book A Ride</Title>
+          <Title>GoCabs</Title>
         </Body>
         <Right>
           <Button transparent>
