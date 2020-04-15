@@ -35,3 +35,15 @@ export const geoCoder = async (placeName) => {
   };
   return result;
 };
+
+// calculate trip details
+export const calculateTripDetails = async (data) => {
+  const res = await axios.get(
+    `https://fleet.api.here.com/2/calculateroute.json?&waypoint0=geo!${data.fromCoordinatesLat},${data.fromCoordinatesLon}&waypoint1=geo!${data.toCoordinatesLat},${data.toCoordinatesLon}&currency=INR&tollVehicleType=3&mode=fastest;truck;traffic:enabled&rollup=none,country;tollsys&app_id=${Const.HERE_MAPS_APP_ID}&app_code=${Const.HERE_MAPS_APP_CODE}&driver_cost=${data.driverCost}&vechile_cost=${data.vechileCost}`,
+  );
+  var result = {
+    summary: res.data.response.route[0].summary,
+    cost: res.data.response.route[0].cost,
+  };
+  return result;
+};

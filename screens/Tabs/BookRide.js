@@ -19,7 +19,11 @@ import {
 // webview for map
 import WebView from 'react-native-webview';
 
-import {getPlacesSuggestions, geoCoder} from '../../actions/mapActions';
+import {
+  getPlacesSuggestions,
+  geoCoder,
+  calculateTripDetails,
+} from '../../actions/mapActions';
 
 // Firestore
 import firestore from '@react-native-firebase/firestore';
@@ -88,6 +92,7 @@ class BookRide extends React.Component {
         fromLon: this.state.fromLocationLon,
         toLocationLat: this.state.toLocationLat,
         toLocationLon: this.state.toLocationLon,
+        distance: this.state.distance,
         type: 'rideNow',
       })
       .then(() => {
@@ -109,6 +114,7 @@ class BookRide extends React.Component {
         type: 'rideLater',
         time: this.state.selectedTime,
         date: this.state.selectedDate,
+        distance: this.state.distance,
       })
       .then(() => {
         console.log('Order added!');
@@ -148,6 +154,23 @@ class BookRide extends React.Component {
     this.setState({
       isDatePickerVisible: false,
       isTimePickerVisible: false,
+    });
+  };
+
+  getTripDetails = () => {
+    var data = {
+      fromCoordinatesLat: this.state.fromLocationLat,
+      fromCoordinatesLon: this.state.fromLocationLon,
+      toCoordinatesLat: this.state.toLocationLat,
+      toCoordinatesLon: this.state.toLocationLon,
+      driverCost: 0,
+      vechileCost: 0,
+    };
+    calculateTripDetails(data).then((res) => {
+      this.setState({
+        distance: (res.summary.distance / 1000).toFixed(0),
+        time: (res.summary.baseTime / 3600).toFixed(0),
+      });
     });
   };
   render() {
@@ -241,6 +264,7 @@ class BookRide extends React.Component {
                             toLocationLat: res.data.lat,
                             toLocationLon: res.data.lon,
                           });
+                          this.getTripDetails();
                         });
                       }}>
                       <CardItem>
@@ -281,11 +305,17 @@ class BookRide extends React.Component {
           <View style={styles.footer}>
             <View style={{flexDirection: 'column'}}>
               <Text style={styles.footerPrice}>
-                Total :<Text style={styles.priceAmount}> 580 RS</Text>
+                Total :
+                <Text style={styles.priceAmount}>
+                  {' '}
+                  {this.state.distance * 6} RS
+                </Text>
               </Text>
               <Text style={{marginLeft: 5}}>
                 Distance :{' '}
-                <Text style={{color: 'green', fontWeight: 'bold'}}>18 KM</Text>
+                <Text style={{color: 'green', fontWeight: 'bold'}}>
+                  {this.state.distance} KM
+                </Text>
               </Text>
             </View>
             <View style={{marginLeft: 15, flexDirection: 'row'}}>

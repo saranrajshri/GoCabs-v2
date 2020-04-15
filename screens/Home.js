@@ -22,6 +22,7 @@ import firestore from '@react-native-firebase/firestore';
 
 // date time picker
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import BookMarks from './Tabs/BookMarks';
 
 class Home extends React.Component {
   // get user details (real time)
@@ -47,6 +48,8 @@ class Home extends React.Component {
             <BookRide />
           ) : this.context.currentTabIndex === 1 ? (
             <MyRides />
+          ) : this.context.currentTabIndex === 2 ? (
+            <BookMarks />
           ) : null}
         </ScrollView>
         <Footer />

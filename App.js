@@ -16,7 +16,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentTabIndex: 1,
+      currentTabIndex: 2,
       userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
       userData: {},
     };

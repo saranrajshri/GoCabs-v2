@@ -1,7 +1,7 @@
 import React from 'react';
 
 // react native
-import {View, TouchableOpacity, Share} from 'react-native';
+import {View, TouchableOpacity, Share, Alert, ToastAndroid} from 'react-native';
 
 // native base
 import {Text, Card, CardItem, Body, Icon, Button} from 'native-base';
@@ -20,6 +20,35 @@ class ScheduledRides extends React.Component {
     };
   }
 
+  // show toast
+  showToast = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      'Settings changed successfully',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      20,
+      120,
+    );
+  };
+
+  // showWeatherDetails
+  showWeatherDetails = (index) => {
+    Alert.alert(
+      'Weather Report',
+      'Overall : Overcast. Chilly \n Temperature: 5.61 \n Visibility : 16.09 \n WindSpeed: 14.83',
+      [
+        {
+          text: 'Notify me',
+          onPress: () => {
+            this.showToast();
+          },
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      {cancelable: false},
+    );
+  };
   //   share details
   shareDetails = (index) => {
     var data = this.state.rides[index];
@@ -128,12 +157,18 @@ class ScheduledRides extends React.Component {
                   </CardItem>
                   <CardItem footer>
                     <Button style={{borderRadius: 20}}>
-                      <Text style={{fontSize: 15, color: '#fff'}}>
+                      <Text style={{fontSize: 12, color: '#fff'}}>
                         Show In Map
                       </Text>
                     </Button>
-                    <View style={{flexDirection: 'row', marginLeft: 150}}>
+
+                    <View style={{flexDirection: 'row', marginLeft: 100}}>
                       <TouchableOpacity
+                        onPress={() => this.showWeatherDetails(index)}>
+                        <Icon name="umbrella" style={{fontSize: 20}}></Icon>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={{marginLeft: 10}}
                         onPress={() => this.shareDetails(index)}>
                         <Icon name="share" style={{fontSize: 20}}></Icon>
                       </TouchableOpacity>
