@@ -16,7 +16,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentTabIndex: 2,
+      currentTabIndex: 3,
       userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
       userData: {},
     };
@@ -78,4 +78,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;

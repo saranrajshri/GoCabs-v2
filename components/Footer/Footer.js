@@ -21,7 +21,7 @@ class BottomNavigation extends React.Component {
     return (
       <Footer>
         <FooterTab>
-          <Button active vertical onPress={() => this.context.setTabIndex(0)}>
+          <Button vertical onPress={() => this.context.setTabIndex(0)}>
             <Icon name="car" />
             <Text>Ride Now</Text>
           </Button>
@@ -33,7 +33,7 @@ class BottomNavigation extends React.Component {
             <Icon active name="bookmark" />
             <Text style={{fontSize: 8}}>BookMarks</Text>
           </Button>
-          <Button vertical>
+          <Button vertical onPress={() => this.context.setTabIndex(3)}>
             <Icon name="more" />
             <Text>More</Text>
           </Button>

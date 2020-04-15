@@ -16,7 +16,7 @@ import FirebaseContext from '../context/firebaseContext';
 // tabs
 import BookRide from './Tabs/BookRide';
 import MyRides from './Tabs/MyRides';
-
+import More from './Tabs/More';
 // firestore
 import firestore from '@react-native-firebase/firestore';
 
@@ -50,6 +50,8 @@ class Home extends React.Component {
             <MyRides />
           ) : this.context.currentTabIndex === 2 ? (
             <BookMarks />
+          ) : this.context.currentTabIndex === 3 ? (
+            <More />
           ) : null}
         </ScrollView>
         <Footer />
