@@ -24,6 +24,10 @@ import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import BookMarks from './Tabs/BookMarks';
 
+// Navigator
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+
 class Home extends React.Component {
   // get user details (real time)
   getUserDetails = () => {
@@ -60,4 +64,31 @@ class Home extends React.Component {
   }
 }
 Home.contextType = FirebaseContext;
-export default Home;
+
+const AppStack = createStackNavigator({
+  Home: {
+    screen: Home
+  },
+  BookRide: {
+    screen: BookRide
+  },
+  MyRides: {
+    screen: MyRides
+  },
+  BookMarks: {
+    screen: BookMarks
+  },
+  More: {
+    screen: More
+  },
+},
+{
+  initialRouteName: 'Home',
+  defaultNavigationOptions: {
+    headerShown: false
+  }
+})
+
+const AppContainer = createAppContainer(AppStack)
+
+export default AppContainer;
