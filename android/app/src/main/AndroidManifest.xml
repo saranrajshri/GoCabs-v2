@@ -5,17 +5,15 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-   <!-- <meta-data  
-        android:name="com.here.android.maps.appid"
-        android:value="Fxo5lMOCVCihdyGpnJqG" />
-
-    <meta-data
-        android:name="com.here.android.maps.apptoken"
-        android:value="k9-YpW3V3CT2apToVVLwQQ" />
-
-    <meta-data android:name="com.here.android.maps.license.key"
-        android:value="AgD1tcXw7IgMWg4+es5eBm+M9fNn8JuiBKUr2MQNvb6Im11UPs92gL2LFLW9crFSXHllQSNIiU3rkj5u1AyzoQWiqlpAZ02ehn94ib1smzXNxSN6OIBZ7J0a2YK4MaQ2p6mRFu/TMU+DY7XeuyFNAGSkgCQwx6bUoZ7HEpITjQDlkP5DFzUZ3WK6Ib3JzJm0nHWinS1LYROgg3LJ+Vj+q+Qz78hgOoyILa3w1E3rfH+fFkMXTcMlyAZyZap/P3G6rj1JAu6VfJPUJdV8H+KXQpYP52CSrL/BuKVQ79S84tk4+9C4sG6ASKVpLOh9Y4sl8aeYM0Wu4kh17qJpw9DSpJzvIlBUFQ9fpTrdFSAIayDkQwIROAIbpLcEbFLDB50y+tf5iV3aK3ll/V481ZS+7e7VDzzTxSqN2kWHZEAo8pMviY0MiFHOPF7mau9peSp5ChCDjpua42hkfTDlaQ2si476y9ag0gkx8UXjMluraoC6lNbTXZFnQAdimfo/kFr80qjwledMsiZkvStXy2q37dbBM1RVwOp61337cNOY96gG56W9hbGWNnzF6GCZeSHsGiXYcdCm5BO7dSDwlWKG3R+zuJre/Zd1smLkURK17CvO7V6FhKzTjm8/0ytKfIg+bp/tqTRukTo9xtBKTAN8bJgIReGaUx4XkvRlOS3EjOM="/> -->
-
+   <!--  -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--  -->
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -23,6 +21,40 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+
+      <!--  -->
+      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
+                      android:value="YOUR NOTIFICATION CHANNEL NAME"/>
+      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
+                  android:value="YOUR NOTIFICATION CHANNEL DESCRIPTION"/>
+      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
+                  android:resource="@android:color/white"/>
+
+      <receiver
+          android:name="com.google.android.gms.gcm.GcmReceiver"
+          android:exported="true"
+          android:permission="com.google.android.c2dm.permission.SEND" >
+          <intent-filter>
+              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+              <category android:name="${applicationId}" />
+          </intent-filter>
+      </receiver>
+
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+          <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" />
+          </intent-filter>
+      </receiver>
+      <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService"/>
+      <service
+          android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+          android:exported="false" >
+          <intent-filter>
+              <action android:name="com.google.firebase.MESSAGING_EVENT" />
+          </intent-filter>
+      </service>
+      <!--  -->
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

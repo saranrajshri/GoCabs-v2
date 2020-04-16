@@ -8,9 +8,13 @@ import FireBaseContext from './context/firebaseContext';
 
 // Screens
 import Home from './screens/Home';
+import ConfirmRide from './screens/ConfirmRide';
 
 // firebase notifications
 import messaging from '@react-native-firebase/messaging';
+
+// Push controller
+import PushController from './components/PushController';
 
 class App extends React.Component {
   constructor() {
@@ -19,6 +23,8 @@ class App extends React.Component {
       currentTabIndex: 3,
       userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
       userData: {},
+      fcmToken:
+        'fCSv1N81ffs:APA91bHSFxX24lUxasZkVKQOsPmmi9wVS9mqYGL_QPc0fQSpj9NMPhQcrjXM0HAlhY2Ip-1SeKxZ7ctXW81NHO2Uo2z8daL0kiIdh7Sv1D093MiVdLzjQ__gwouv_JgRwTGXRCmzWDAW',
     };
   }
 
@@ -54,6 +60,9 @@ class App extends React.Component {
     messaging()
       .getToken()
       .then((token) => {
+        this.setState({
+          fcmToken: token,
+        });
         console.log(token);
       });
   };
@@ -62,6 +71,8 @@ class App extends React.Component {
     this.registerAppWithFCM();
     this.getPermission();
     this.getFCMToken();
+
+    //
   }
   render() {
     return (
@@ -72,7 +83,7 @@ class App extends React.Component {
           setUserData: this.setUserData,
         }}>
         <Container>
-          <Home />
+          <ConfirmRide />
         </Container>
       </FireBaseContext.Provider>
     );
