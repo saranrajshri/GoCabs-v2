@@ -9,6 +9,7 @@ import FireBaseContext from './context/firebaseContext';
 // Screens
 import Home from './screens/Home';
 import ConfirmRide from './screens/ConfirmRide';
+import MainRide from './screens/MainRide';
 
 // firebase notifications
 import messaging from '@react-native-firebase/messaging';
@@ -83,7 +84,7 @@ class App extends React.Component {
           setUserData: this.setUserData,
         }}>
         <Container>
-          <ConfirmRide />
+          <MainRide />
         </Container>
       </FireBaseContext.Provider>
     );

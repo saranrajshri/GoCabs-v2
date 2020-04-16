@@ -46,7 +46,7 @@ var defaultLayers = platform.createDefaultLayers();
 var map = new H.Map(document.getElementById('map'),
   defaultLayers.vector.normal.map,{
   center: {lat:13.5892, lng:80.0283},
-  zoom: 8,
+  zoom: 9,
   pixelRatio: window.devicePixelRatio || 1
 });
 // add a resize listener to make sure that the map occupies the whole container
@@ -58,7 +58,7 @@ window.addEventListener('resize', () => map.getViewPort().resize());
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
-var ui = H.ui.UI.createDefault(map, defaultLayers);
+// var ui = H.ui.UI.createDefault(map, defaultLayers);
 
 // Now use the map as required...
 window.onload = function () {
@@ -69,7 +69,6 @@ var originIcon='https://img.icons8.com/color/48/000000/marker.png';
     //Show marker on map
     var icon = new H.map.Icon(originIcon);
     var marker = new H.map.Marker({ lat: 13.0827, lng: 80.2707 }, { icon: icon });
-    var marker1 = new H.map.Marker({ lat: 12.9716, lng: 77.5946 }, { icon: icon });
     // var marker2 = new H.map.Marker({ lat: 13.6288, lng: 79.4192 }, { icon: icon });
     map.addObject(marker)
     map.addObject(marker1)
