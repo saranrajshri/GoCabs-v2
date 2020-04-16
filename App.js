@@ -1,13 +1,14 @@
 import React from 'react';
 
 // native base components
-import {Container} from 'native-base';
+import {Root} from 'native-base';
 
 // context
 import FireBaseContext from './context/firebaseContext';
 
 // Screens
-import Home from './screens/Home';
+// import Home from './screens/Home';
+import AppContainer from './screens/Home'
 
 // firebase notifications
 import messaging from '@react-native-firebase/messaging';
@@ -71,9 +72,9 @@ class App extends React.Component {
           setTabIndex: this.setTabIndex,
           setUserData: this.setUserData,
         }}>
-        <Container>
-          <Home />
-        </Container>
+        <Root>
+          <AppContainer />
+        </Root>
       </FireBaseContext.Provider>
     );
   }
