@@ -1,7 +1,7 @@
 import React from 'react';
 
 // native base components
-import {Container} from 'native-base';
+import {Container, Root} from 'native-base';
 
 // context
 import FireBaseContext from './context/firebaseContext';
@@ -10,6 +10,8 @@ import FireBaseContext from './context/firebaseContext';
 import Home from './screens/Home';
 import ConfirmRide from './screens/ConfirmRide';
 import MainRide from './screens/MainRide';
+
+import AppContainer from './screens/Home';
 
 // firebase notifications
 import messaging from '@react-native-firebase/messaging';
@@ -21,7 +23,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentTabIndex: 3,
+      currentTabIndex: 0,
       userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
       userData: {},
       fcmToken:
@@ -83,9 +85,11 @@ class App extends React.Component {
           setTabIndex: this.setTabIndex,
           setUserData: this.setUserData,
         }}>
-        <Container>
-          <MainRide />
-        </Container>
+        <Root>
+          <Container>
+            <AppContainer />
+          </Container>
+        </Root>
       </FireBaseContext.Provider>
     );
   }

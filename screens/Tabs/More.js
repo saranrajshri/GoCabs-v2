@@ -10,8 +10,8 @@ class More extends React.Component {
   constructor() {
     super();
     this.state = {
-      isExpenseTrackerVisible: true,
-      isNormalViewVisible: false,
+      isExpenseTrackerVisible: false,
+      isNormalViewVisible: true,
     };
   }
 

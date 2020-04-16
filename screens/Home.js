@@ -17,6 +17,10 @@ import FirebaseContext from '../context/firebaseContext';
 import BookRide from './Tabs/BookRide';
 import MyRides from './Tabs/MyRides';
 import More from './Tabs/More';
+
+import ConfirmRide from '../screens/ConfirmRide';
+import MainRide from '../screens/MainRide';
+
 // firestore
 import firestore from '@react-native-firebase/firestore';
 
@@ -49,7 +53,7 @@ class Home extends React.Component {
         {this.context.currentTabIndex !== 0 ? <Header /> : null}
         <ScrollView>
           {this.context.currentTabIndex === 0 ? (
-            <BookRide />
+            <BookRide navigation={this.props.navigation} />
           ) : this.context.currentTabIndex === 1 ? (
             <MyRides />
           ) : this.context.currentTabIndex === 2 ? (
@@ -65,30 +69,26 @@ class Home extends React.Component {
 }
 Home.contextType = FirebaseContext;
 
-const AppStack = createStackNavigator({
-  Home: {
-    screen: Home
+const AppStack = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+    },
+    ConfirmRide: {
+      screen: ConfirmRide,
+    },
+    MainRide: {
+      screen: MainRide,
+    },
   },
-  BookRide: {
-    screen: BookRide
+  {
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
   },
-  MyRides: {
-    screen: MyRides
-  },
-  BookMarks: {
-    screen: BookMarks
-  },
-  More: {
-    screen: More
-  },
-},
-{
-  initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    headerShown: false
-  }
-})
+);
 
-const AppContainer = createAppContainer(AppStack)
+const AppContainer = createAppContainer(AppStack);
 
 export default AppContainer;

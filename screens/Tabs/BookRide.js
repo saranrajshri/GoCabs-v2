@@ -54,8 +54,11 @@ class BookRide extends React.Component {
       'Please Wait...',
       [
         {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          text: 'OK',
+          onPress: () => {
+            // to be implemented
+            setTimeout(this.props.navigation.push('ConfirmRide'), 3000);
+          },
           style: 'cancel',
         },
       ],
@@ -84,20 +87,20 @@ class BookRide extends React.Component {
   // sends data to firebase
   requestDrivers = () => {
     this.showAlert();
-    firestore()
-      .collection('waitingOrders')
-      .add({
-        userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
-        fromLat: this.state.fromLocationLat,
-        fromLon: this.state.fromLocationLon,
-        toLocationLat: this.state.toLocationLat,
-        toLocationLon: this.state.toLocationLon,
-        distance: this.state.distance,
-        type: 'rideNow',
-      })
-      .then(() => {
-        console.log('Order added!');
-      });
+    // firestore()
+    //   .collection('waitingOrders')
+    //   .add({
+    //     userID: 'Hy0EkRkKZyW8xIsYqQOTLN20Apy1',
+    //     fromLat: this.state.fromLocationLat,
+    //     fromLon: this.state.fromLocationLon,
+    //     toLocationLat: this.state.toLocationLat,
+    //     toLocationLon: this.state.toLocationLon,
+    //     distance: this.state.distance,
+    //     type: 'rideNow',
+    //   })
+    //   .then(() => {
+    //     console.log('Order added!');
+    //   });
   };
 
   // schedule order

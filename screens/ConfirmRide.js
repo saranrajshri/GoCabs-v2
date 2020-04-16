@@ -24,6 +24,7 @@ class ConfirmRide extends React.Component {
       'Your ride is on the way',
       this.context.fcmToken,
     );
+    this.props.navigation.push('MainRide');
   };
   render() {
     return (
